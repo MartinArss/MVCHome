@@ -39,6 +39,22 @@ namespace MVCHome.Controllers
             return View();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Crear(Usuario request)
+        {
+            if(request != null)
+            {
+                Usuario usuario = new();
+                usuario.Nombre = request.Nombre;
+                usuario.User = request.User;
+                usuario.Password = request.Password;
+            }
+            else
+            {
+
+            }
+        }
+
         //[HttpPatch]
         public IActionResult Editar()
         {
