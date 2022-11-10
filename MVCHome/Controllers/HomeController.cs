@@ -40,7 +40,27 @@ namespace MVCHome.Controllers
         }
 
         [HttpPost]
+<<<<<<< HEAD
         public async Task<IActionResult> CrearUsuario(Usuario request)
+=======
+        public async Task<IActionResult> Crear(Usuario request)
+        {
+            if(request != null)
+            {
+                Usuario usuario = new();
+                usuario.Nombre = request.Nombre;
+                usuario.User = request.User;
+                usuario.Password = request.Password;
+            }
+            else
+            {
+
+            }
+        }
+
+        //[HttpPatch]
+        public IActionResult Editar()
+>>>>>>> e3b9073e497e5921c6f57cbd3d5635e52951a047
         {
             if(request != null)
             {
