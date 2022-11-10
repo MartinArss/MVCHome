@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVCHome.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221106045528_example")]
+    [Migration("20221110125453_example")]
     partial class example
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

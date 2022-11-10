@@ -39,15 +39,62 @@ namespace MVCHome.Controllers
             return View();
         }
 
-        //[HttpPatch]
-        public IActionResult Editar()
+        [HttpPost]
+        public async Task<IActionResult> CrearUsuario(Usuario request)
         {
+            if(request != null)
+            {
+                Usuario usuario=new Usuario();
+                usuario.Nombre = request.Nombre;
+                usuario.User = request.User;
+                usuario.Password = request.Password;
+                usuario.FkRol = 1;
+
+                _context.UsuarioDb.Add(usuario);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
+            }
             return View();
         }
 
         public IActionResult Privacy()
         {
             return View();
+        }
+        // FUNCIONES PARA EDITAR
+        [HttpGet]
+        public IActionResult Editar(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var usuario = _context.UsuarioDb.Find(id);
+            if(usuario == null)
+            {
+                return NotFound();
+            }
+
+            return View(usuario);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditarUsuario(Usuario response)
+        {
+            Usuario usuario = new Usuario();
+            usuario = _context.UsuarioDb.Find(response.PkUser);
+
+            if (usuario != null)
+            {
+                usuario.Nombre = response.Nombre;
+                usuario.User = response.User;
+                usuario.Password = response.Password;
+                _context.Entry(usuario).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return NotFound();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
