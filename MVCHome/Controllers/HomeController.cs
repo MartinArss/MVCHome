@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace MVCHome.Controllers
@@ -40,27 +41,7 @@ namespace MVCHome.Controllers
         }
 
         [HttpPost]
-<<<<<<< HEAD
         public async Task<IActionResult> CrearUsuario(Usuario request)
-=======
-        public async Task<IActionResult> Crear(Usuario request)
-        {
-            if(request != null)
-            {
-                Usuario usuario = new();
-                usuario.Nombre = request.Nombre;
-                usuario.User = request.User;
-                usuario.Password = request.Password;
-            }
-            else
-            {
-
-            }
-        }
-
-        //[HttpPatch]
-        public IActionResult Editar()
->>>>>>> e3b9073e497e5921c6f57cbd3d5635e52951a047
         {
             if(request != null)
             {
@@ -115,6 +96,34 @@ namespace MVCHome.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return NotFound();
+        }
+
+        //FUNCIONES PARA ELIMINAR
+        [HttpGet]
+        public IActionResult Eliminar(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var usuario = _context.UsuarioDb.Find(id);
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+
+            return View(usuario);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EliminarUsuario(Usuario response)
+        {
+            Usuario usuario = new Usuario();
+            usuario.PkUser = response.PkUser;
+
+            _context.UsuarioDb.Remove(usuario);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
