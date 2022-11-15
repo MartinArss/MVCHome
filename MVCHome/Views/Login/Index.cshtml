@@ -1,0 +1,42 @@
+﻿@{
+	ViewData["Title"] = "Login Page";
+}
+@*<h1><a>@ViewData["Title"]</a></h1>*@
+
+<div class="container">
+    <div class="form-group mt-3">
+        <h2>Login to Your Account</h2>
+
+        <label for="inputEmail3" class="col-sm-2 col-form-label">User</label>
+        <div class="col-sm-5">
+            <input type="text" class="form-control" id="user">
+        </div>
+    </div>
+    <div class="form-group mt-3">
+        <label for="password" class="col-sm-2 col-form-label">Password</label>
+        <div class="col-sm-5">
+            <input type="password" class="form-control" id="password">
+        </div>
+    </div>
+    <div id="FormLog">
+        <button type="submit" id="btnLogin" class="btn btn-success d-block">Iniciar</button>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $("#btnLogin").click(function(){
+            var user = $("#user").val();
+            var password = $("#password").val();
+            //alert("This is alert !!! " + user);
+            //console.log(password)
+
+            var data = {
+                "user" : user ,
+                "password" : password
+            };
+
+            console.log(data)
+        });
+    });
+</script>
