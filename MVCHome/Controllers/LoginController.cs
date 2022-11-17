@@ -1,5 +1,4 @@
-﻿using AspNetCore;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MVCHome.Context;
 using System;
 using System.Linq;
@@ -18,21 +17,42 @@ namespace MVCHome.Controllers
         {
             return View();
         }
-        
-        public IActionResult LoginUser(string user, string password)
+
+        //public IActionResult LoginUser(string user, string password)
+        //{
+        //    try
+        //    {
+        //        var response = _context.UsuarioDb.Where(u => u.User == user && u.Password == password).ToList();
+        //        if (response.Count > 0)
+        //        {
+        //            return RedirectToAction("Index", "Home");
+        //        }
+        //        else
+        //        {
+        //            return NotFound();
+        //        }
+        //    }catch(Exception e)
+        //    {
+        //        throw new Exception("Surgio un error: " + e.Message);
+        //    }
+        //}
+
+        [HttpPost]
+        public JsonResult LoginUser(string user, string password)
         {
             try
             {
                 var response = _context.UsuarioDb.Where(u => u.User == user && u.Password == password).ToList();
                 if (response.Count > 0)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return Json(new { Success = true });
                 }
                 else
                 {
-                    return NotFound();
+                    return Json(new { Success = false });
                 }
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 throw new Exception("Surgio un error: " + e.Message);
             }

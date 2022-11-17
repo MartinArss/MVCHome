@@ -26,17 +26,40 @@
 <script>
     $(document).ready(function(){
         $("#btnLogin").click(function(){
+
             var user = $("#user").val();
             var password = $("#password").val();
+
             //alert("This is alert !!! " + user);
             //console.log(password)
 
-            var data = {
-                "user" : user ,
-                "password" : password
-            };
+            //var data = {
+            //    "user" : user ,
+            //    "password" : password
+            //};
 
-            console.log(data)
+            //console.log(data)
+
+            $.ajax({
+                url: "/Login/LoginUser",
+                type: "POST",
+                data: {
+                    "user": user,
+                    "password": password
+                },
+                dataType: "json",
+                success: function(response){
+                    console.log(response)
+                    if(response.success == true){
+                        window.location.href = "/Home/Index";
+                    }
+                    else
+                    window.location.href = "@Url.Action("Index", "Login")";
+                },
+                error: function(){
+                    console.log('Login Fail!!!');
+                }
+            });
         });
     });
 </script>

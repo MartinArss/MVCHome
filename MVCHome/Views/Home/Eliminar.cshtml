@@ -17,11 +17,11 @@
                     @*OBTENEMOS EL ID DEL USUARIO PERO SE LO OCULTAMOS AL USUARIO*@
                     <input type="hidden" asp-for="PkUser" />
                     <div class="form-group">
-                        <label asp-for="Nombre">Nombre</label>
+                        @*<label type="hidden" asp-for="Nombre">Nombre</label>*@
                         <input type="hidden" asp-for="Nombre" class="form-control" placeholder="Ingrese el nombre a eliminar" required />
                     </div>
                     <div class="form-group">
-                        <label asp-for="User">Usuario</label>
+                        @*<label type="hidden" asp-for="User">Usuario</label>*@
                         <input type="hidden" asp-for="User" class="form-control" placeholder="Ingrese el nombre de usuario a eliminar" required />
                     </div>
                     <div class="confirmacion"><strong>¿Desea eliminar el usuario?</strong></div>
