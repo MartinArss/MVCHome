@@ -9,5 +9,6 @@ namespace MVCHome.Context
         { }
         public DbSet<Usuario> UsuarioDb { get; set; }
         public DbSet<Roles> RolDb { get; set; }
+        public DbSet<Articulo> ArticuloDb { get; set; }
     }
 }

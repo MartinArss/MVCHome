@@ -7,6 +7,21 @@ namespace MVCHome.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "ArticuloDb",
+                columns: table => new
+                {
+                    PkArticulo = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UrlImg = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ArticuloDb", x => x.PkArticulo);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "RolDb",
                 columns: table => new
                 {
@@ -49,6 +64,9 @@ namespace MVCHome.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "ArticuloDb");
+
             migrationBuilder.DropTable(
                 name: "UsuarioDb");
 
