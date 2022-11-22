@@ -1,6 +1,6 @@
-﻿@model MVCHome.Models.Usuario
+﻿@model MVCHome.Models.Articulo
 @{
-    ViewData["Title"] = "Editar Usuario";
+    ViewData["Title"] = "Editar Articulo";
     Layout = "_LayoutDashboard";
 }
 
@@ -10,24 +10,28 @@
         <div class="card border">
             <div class="card-header bg-dark">
                 <h1 class="text-white">
-                    <strong>Editar usuario</strong>
+                    <strong>Editar articulo</strong>
                 </h1>
             </div>
             <div class="card-body">
-                <form asp-action="EditarUsuario" method="post">
+                <form asp-action="Editar" method="post">
                     @*OBTENEMOS EL ID DEL USUARIO PERO SE LO OCULTAMOS AL USUARIO*@
-                    <input type="hidden" asp-for="PkUser"/>
+                    <div class="form-group">
+                        <label asp-for="PkArticulo">Id del articulo</label>
+                        <input asp-for="PkArticulo" class="form-control" placeholder="Ingrese el id" required />
+                    </div>
+                    @*<input type="hidden" asp-for="PkArticulo" />*@
                     <div class="form-group">
                         <label asp-for="Nombre">Nombre</label>
                         <input asp-for="Nombre" class="form-control" placeholder="Ingrese su nombre" required />
                     </div>
                     <div class="form-group">
-                        <label asp-for="User">Usuario</label>
-                        <input asp-for="User" class="form-control" placeholder="Ingrese su usuario" required />
+                        <label asp-for="Descripcion">Descripcion</label>
+                        <input asp-for="Descripcion" class="form-control" placeholder="Ingrese la descripcion" required />
                     </div>
                     <div class="form-group">
-                        <label asp-for="Password">Contraseña</label>
-                        <input asp-for="Password" class="form-control" placeholder="Ingrese una contraseña" required />
+                        <label asp-for="UrlImg">Link</label>
+                        <input asp-for="UrlImg" class="form-control" placeholder="Ingrese el link" required />
                     </div>
                     <div class="container-fluid">
                         <button type="submit" class="btn btn-outline-success">
@@ -36,7 +40,7 @@
                     </div>
                 </form>
                 <br />
-                <a class="btn btn-outline-dark" asp-controller="Home" asp-action="Index">
+                <a class="btn btn-outline-dark" asp-controller="Articulo" asp-action="Index">
                     <i class="fa-solid fa-arrow-rotate-left"></i> Volver
                 </a>
             </div>

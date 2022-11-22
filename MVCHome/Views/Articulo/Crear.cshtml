@@ -1,6 +1,7 @@
 ﻿@model MVCHome.Models.Articulo
 @{
     ViewData["Title"] = "Crear Articulo";
+    Layout = "_LayoutDashboard";
 }
 
 @*<h1><a></a>@ViewData["Title"]</h1>*@
@@ -13,7 +14,7 @@
                 </h1>
             </div>
             <div class="card-body">
-                <form asp-action="CrearArticulo" method="post">
+                <form asp-action="Crear" method="post">
                     <div class="form-group">
                         <label asp-for="Nombre">Nombre</label>
                         <input asp-for="Nombre" class="form-control" placeholder="Ingrese el nombre del articulo" required />
@@ -28,7 +29,7 @@
                     </div>
                     <div class="container-fluid">
                         <button type="submit" class="btn btn-outline-success">
-                            <i class="fa-solid fa-plus"></i> Crear
+                            <i class="fa-solid fa-plus"></i> Guardar
                         </button>
                     </div>
                 </form>

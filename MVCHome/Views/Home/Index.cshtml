@@ -1,12 +1,15 @@
 ﻿@model IEnumerable<MVCHome.Models.Usuario>
 @{
     ViewData["Title"] = "Home Page";
+    Layout = "_LayoutDashboard";
 }
 
 <div class="row">
     <div class="offset-9 col-3 mb-3">
         <a asp-action="Crear" asp-controller="Home" class="btn-success d-block mx=auto btn-lg">
             <i class="fa-solid fa-plus"></i> Nuevo usuario
+        </a><a asp-action="Index" asp-controller="Articulo" class="btn-success d-block mx=auto btn-lg">
+            <i class="fa-solid fa-plus"></i> Articulos page
         </a>
     </div>
 </div>

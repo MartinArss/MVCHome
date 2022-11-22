@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<MVCHome.Models.Articulo>
 @{
     ViewData["Title"] = "Articulo Page";
+    Layout = "_LayoutDashboard";
 }
 
 <div class="row">
@@ -28,6 +29,7 @@
                            width="100%" cellspacing="0">
                             <thead>
                                 <tr>
+                                    <th>@Html.DisplayNameFor(x => x.PkArticulo)</th>
                                     <th>@Html.DisplayNameFor(x => x.Nombre)</th>
                                     <th>@Html.DisplayNameFor(x => x.Descripcion)</th>
                                     <th>@Html.DisplayNameFor(x => x.UrlImg)</th>
@@ -38,12 +40,13 @@
                                 @foreach (var item in Model)
                                 {
                                     <tr>
+                                        <td>@Html.DisplayFor(x => item.PkArticulo)</td>
                                         <td>@Html.DisplayFor(x => item.Nombre)</td>
                                         <td>@Html.DisplayFor(x => item.Descripcion)</td>
                                         <td style="text-align:center"><img style="width:35%" src="@Html.DisplayFor(x => item.UrlImg)" alt=""></td>
                                         <td>
                                             <a class="btn btn-warning" asp-action="Editar" asp-route-id="@item.PkArticulo">
-                                                <i class="fa-solid fa-pen-to-square"></i> Modificar
+                                                <i class="fa-solid fa-pen-to-square"></i> Editar
                                             </a>
                                             <br>
                                             <br>

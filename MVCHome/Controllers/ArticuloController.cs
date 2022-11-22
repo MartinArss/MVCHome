@@ -1,8 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Dapper;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MVCHome.Context;
 using MVCHome.Models;
+using System;
+using System.Data;
 using System.Threading.Tasks;
 
 namespace MVCHome.Controllers
@@ -20,10 +24,21 @@ namespace MVCHome.Controllers
         //    return View();
         //}
 
+        SqlConnection connection = new SqlConnection("Data Source=DESKTOP-N5V89RM; Initial Catalog=ProyectoTest; Integrated Security=True;");
+
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var response = await _context.ArticuloDb.ToListAsync();
-            return View(response);
+            try
+            {
+                //var response = await _context.ArticuloDb.ToListAsync();
+                var response = await connection.QueryAsync<Articulo>("SP_GetDataAriculos", new { }, commandType: CommandType.StoredProcedure);
+                return View(response);
+            }
+            catch (Exception ex)
+            {
+                throw new System.Exception("Surgio un error" + ex.Message);
+            }
         }
 
         [HttpGet]
@@ -32,22 +47,58 @@ namespace MVCHome.Controllers
             return View();
         }
 
+        //[HttpPost]
+        //public async Task<IActionResult> CrearArticulo(Articulo request)
+        //{
+        //    if (request != null)
+        //    {
+        //        Articulo articulo = new Articulo();
+        //        articulo.Nombre = request.Nombre;
+        //        articulo.Descripcion = request.Descripcion;
+        //        articulo.UrlImg = request.UrlImg;
+
+        //        _context.ArticuloDb.Add(articulo);
+        //        await _context.SaveChangesAsync();
+
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    return View();
+        //}
+
         [HttpPost]
-        public async Task<IActionResult> CrearArticulo(Articulo request)
+        public async Task<IActionResult> Crear(Articulo response)
         {
-            if (request != null)
+            try
             {
-                Articulo articulo = new Articulo();
-                articulo.Nombre = request.Nombre;
-                articulo.Descripcion = request.Descripcion;
-                articulo.UrlImg = request.UrlImg;
-
-                _context.ArticuloDb.Add(articulo);
-                await _context.SaveChangesAsync();
-
+                await connection.QueryAsync<Articulo>("SP_InsertArticulo",
+                    new { response.Nombre, response.Descripcion, response.UrlImg }, commandType: CommandType.StoredProcedure);
                 return RedirectToAction(nameof(Index));
             }
+            catch (Exception ex)
+            {
+                throw new System.Exception("Surgio un error" + ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Editar()
+        {
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult>Editar(Articulo response)
+        {
+            try
+            {
+                await connection.QueryAsync<Articulo>("SP_EditArticulo",
+                    new { response.PkArticulo, response.Nombre, response.Descripcion, response.UrlImg }, commandType: CommandType.StoredProcedure);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                throw new System.Exception("Surgio un error" + ex.Message);
+            }
         }
     }
 }
