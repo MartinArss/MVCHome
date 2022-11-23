@@ -1,0 +1,42 @@
+﻿@model MVCHome.Models.Articulo
+@{
+    ViewData["Title"] = "Eliminar Articulo";
+    Layout = "_LayoutDashboard";
+}
+
+@*<h1><a></a>@ViewData["Title"]</h1>*@
+<div class="container-fluid">
+    <div class="offset-12">
+        <div class="card border">
+            <div class="card-header bg-dark">
+                <h1 class="text-white">
+                    <strong>Eliminar articulo</strong>
+                </h1>
+            </div>
+            <div class="card-body">
+                <form asp-action="Eliminar" method="post">
+                    @*OBTENEMOS EL ID DEL USUARIO PERO SE LO OCULTAMOS AL USUARIO*@
+                    <input type="hidden" asp-for="PkArticulo" />
+                    <div class="form-group">
+                        @*<label type="hidden" asp-for="Nombre">Nombre</label>*@
+                        <input type="hidden" asp-for="Nombre" class="form-control" placeholder="Ingrese el nombre a eliminar" required />
+                    </div>
+                    <div class="form-group">
+                        @*<label type="hidden" asp-for="User">Usuario</label>*@
+                        <input type="hidden" asp-for="Descripcion" class="form-control" placeholder="Ingrese la descripcion a eliminar" required />
+                    </div>
+                    <div class="confirmacion"><strong>¿Desea eliminar el articulo?</strong></div>
+                    <div class="container-fluid">
+                        <button type="submit" class="btn btn-outline-success">
+                            <i class="fa-solid fa-plus"></i> Si
+                        </button>
+                        <a class="btn btn-outline-dark" asp-controller="Articulo" asp-action="Index">
+                            <i class="fa-solid fa-arrow-rotate-left"></i> No
+                        </a>
+                    </div>
+                </form>
+                <br />
+            </div>
+        </div>
+    </div>
+</div>
