@@ -28,7 +28,15 @@ namespace MVCHome.Controllers
         //    return View();
         //}
 
+        [HttpGet]
         public async Task<IActionResult> Index()
+        {
+            var response = await _context.UsuarioDb.Include(z => z.Rol).ToListAsync();
+            return View(response);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> IndexCopy()
         {
             var response = await _context.UsuarioDb.Include(z => z.Rol).ToListAsync();
             return View(response);

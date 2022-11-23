@@ -22,6 +22,8 @@
     <div id="FormLog">
         <button type="submit" id="btnLogin" class="btn btn-success d-block">Iniciar</button>
     </div>
+    <br />
+    <div id="result"></div>
 </div>
 
 <script>
@@ -52,10 +54,16 @@
                 success: function(response){
                     console.log(response)
                     if(response.success == true){
-                        window.location.href = "/Home/Index";
+                        if (response.admin == true) {
+                            window.location.href = "/Home/Index";
+                        }
+                        else{
+                            window.location.href = "/Home/IndexCopy"
+                        }
                     }
                     else
-                    window.location.href = "@Url.Action("Index", "Login")";
+                        //window.location.href = "@Url.Action("Index", "Login")";
+                    $("#result").html("<div class='alert alert-danger'><strong>Usuario o contraseña incorrectos.<\strong> Intentelo de nuevo.<\div>")
                 },
                 error: function(){
                     console.log('Login Fail!!!');

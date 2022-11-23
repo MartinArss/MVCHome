@@ -24,7 +24,7 @@ namespace MVCHome.Controllers
         //    return View();
         //}
 
-        SqlConnection connection = new SqlConnection("Data Source=LAPTOP-I409L1PG; Initial Catalog=ProyectoTest; Integrated Security=True;");
+        SqlConnection connection = new SqlConnection("Data Source=DESKTOP-N5V89RM; Initial Catalog=ProyectoTest; Integrated Security=True;");
 
         [HttpGet]
         public async Task<IActionResult> Index()
@@ -32,7 +32,7 @@ namespace MVCHome.Controllers
             try
             {
                 //var response = await _context.ArticuloDb.ToListAsync();
-                var response = await connection.QueryAsync<Articulo>("SP_GetData", new { }, commandType: CommandType.StoredProcedure);
+                var response = await connection.QueryAsync<Articulo>("SP_GetDataAriculos", new { }, commandType: CommandType.StoredProcedure);
                 return View(response);
             }
             catch (Exception ex)
@@ -70,7 +70,7 @@ namespace MVCHome.Controllers
         {
             try
             {
-                await connection.QueryAsync<Articulo>("SP_InsertData",
+                await connection.QueryAsync<Articulo>("SP_InsertArticulo",
                     new { response.Nombre, response.Descripcion, response.UrlImg }, commandType: CommandType.StoredProcedure);
                 return RedirectToAction(nameof(Index));
             }
@@ -91,7 +91,7 @@ namespace MVCHome.Controllers
         {
             try
             {
-                await connection.QueryAsync<Articulo>("SP_EditData",
+                await connection.QueryAsync<Articulo>("SP_EditArticulo",
                     new { response.PkArticulo, response.Nombre, response.Descripcion, response.UrlImg }, commandType: CommandType.StoredProcedure);
                 return RedirectToAction(nameof(Index));
             }
@@ -122,7 +122,7 @@ namespace MVCHome.Controllers
         {
             try
             {
-                await connection.QueryAsync<Articulo>("SP_DeleteData",
+                await connection.QueryAsync<Articulo>("SP_DeleteArticulo",
                     new { response.PkArticulo }, commandType: CommandType.StoredProcedure);
                 return RedirectToAction(nameof(Index));
             }
