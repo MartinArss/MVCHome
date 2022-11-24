@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MVCHome.Context;
@@ -45,11 +46,16 @@ namespace MVCHome.Controllers
         [HttpGet]
         public IActionResult Crear()
         {
+            ViewBag.RolesVb = _context.RolDb.Select(p => new SelectListItem()
+            {
+                Text = p.Nombre,
+                Value = p.PkRol.ToString()
+            });
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> CrearUsuario(Usuario request)
+        public async Task<IActionResult> Crear(Usuario request)
         {
             if(request != null)
             {
@@ -57,7 +63,7 @@ namespace MVCHome.Controllers
                 usuario.Nombre = request.Nombre;
                 usuario.User = request.User;
                 usuario.Password = request.Password;
-                usuario.FkRol = 1;
+                usuario.FkRol = request.FkRol;
 
                 _context.UsuarioDb.Add(usuario);
                 await _context.SaveChangesAsync();

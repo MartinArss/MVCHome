@@ -16,10 +16,7 @@
             <div class="card-body">
                 <form asp-action="Editar" method="post">
                     @*OBTENEMOS EL ID DEL USUARIO PERO SE LO OCULTAMOS AL USUARIO*@
-                    <div class="form-group">
-                        <label asp-for="PkArticulo">Id del articulo</label>
-                        <input asp-for="PkArticulo" class="form-control" placeholder="Ingrese un ID existente para poder editarlo" required />
-                    </div>
+                    <input type="hidden" asp-for="PkArticulo"/>
                     @*<input type="hidden" asp-for="PkArticulo" />*@
                     <div class="form-group">
                         <label asp-for="Nombre">Nombre</label>

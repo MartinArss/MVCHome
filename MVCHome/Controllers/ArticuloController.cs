@@ -26,20 +26,25 @@ namespace MVCHome.Controllers
 
         SqlConnection connection = new SqlConnection("Data Source=DESKTOP-N5V89RM; Initial Catalog=ProyectoTest; Integrated Security=True;");
 
-        [HttpGet]
         public async Task<IActionResult> Index()
         {
-            try
-            {
-                //var response = await _context.ArticuloDb.ToListAsync();
-                var response = await connection.QueryAsync<Articulo>("SP_GetDataAriculos", new { }, commandType: CommandType.StoredProcedure);
-                return View(response);
-            }
-            catch (Exception ex)
-            {
-                throw new System.Exception("Surgio un error" + ex.Message);
-            }
+            return View(await _context.ArticuloDb.ToListAsync());
         }
+
+        //[HttpGet]
+        //public async Task<IActionResult> Index()
+        //{
+        //    try
+        //    {
+        //        //var response = await _context.ArticuloDb.ToListAsync();
+        //        var response = await connection.QueryAsync<Articulo>("SP_GetDataAriculos", new { }, commandType: CommandType.StoredProcedure);
+        //        return View(response);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new System.Exception("Surgio un error" + ex.Message);
+        //    }
+        //}
 
         [HttpGet]
         public IActionResult Crear()
@@ -81,9 +86,19 @@ namespace MVCHome.Controllers
         }
 
         [HttpGet]
-        public IActionResult Editar()
+        public IActionResult Editar(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var articulo = _context.ArticuloDb.Find(id);
+            if (articulo == null)
+            {
+                return NotFound();
+            }
+
+            return View(articulo);
         }
 
         [HttpPost]

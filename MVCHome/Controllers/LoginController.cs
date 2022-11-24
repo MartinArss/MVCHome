@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using MVCHome.Context;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MVCHome.Controllers
 {
@@ -14,6 +15,7 @@ namespace MVCHome.Controllers
         {
             _context = context;
         }
+
         public IActionResult Index()
         {
             return View();

@@ -53,7 +53,7 @@ namespace MVCHome
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Login}/{action=Index}/{id?}");
+                    pattern: "{controller=Articulo}/{action=Index}/{id?}");
             });
         }
     }
